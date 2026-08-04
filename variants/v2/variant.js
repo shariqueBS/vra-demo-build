@@ -1,21 +1,12 @@
 /* Aurelia storefront — content payload for release 4.19.0 (CANDIDATE).
- *
- * Compared with 4.18.0, only two things move here:
- *   INTENTIONAL  the global nav label "Cart" → "Bag" — a deliberate copy
- *                change that lands on all 16 snapshots. The AI should read
- *                this as an intended change, not a bug, and should group it
- *                as one recurring pattern across the build.
- *   NOISE        the sync clock, session id, carrier tracking id, last scan
- *                and five relative feed times — values that churn on every
- *                single deploy and are what a saved ignore prompt is for.
- *
- * Everything else — imagery, avatars, reviewers, promo creative, pricing —
- * is byte-identical to 4.18.0, so those snapshots differ only by the nav. */
+ * Everything that legitimately changes on every deploy — sync clocks,
+ * relative timestamps, rotating avatars, the promo creative — lives here.
+ * These are the diffs a reviewer should teach Percy to ignore. */
 
 window.DEMO = {
   release: '4.19.0',
 
-  // INTENTIONAL — rebrand of the cart affordance, ships across the whole site.
+  // Global nav label — appears top-right on all 16 snapshots.
   nav: {
     cart: 'Bag',
   },
@@ -32,20 +23,17 @@ window.DEMO = {
     '/img/avatar-a4.svg', '/img/avatar-a5.svg', '/img/avatar-a6.svg',
   ],
 
-  // NOISE — wall-clock values on the Seller dashboard.
   sync: {
     clock: '16:07:48',
     session: 'sess_b2d40e19',
   },
 
-  // NOISE — live shipment data on Order tracking.
   tracking: {
     id: 'AUR-9126-3307',
     updated: '16:04:22',
     scan: 'Hub — Antwerp · 15:47',
   },
 
-  // NOISE — relative timestamps on Order tracking.
   feed: [
     '5 minutes ago',
     '38 minutes ago',

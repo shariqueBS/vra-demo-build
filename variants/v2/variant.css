@@ -1,32 +1,32 @@
 /* ============================================================
    Aurelia storefront — release 4.19.0  (CANDIDATE)
-   Same declarations as 4.18.0, TWO values changed — both button
-   regressions, each caused by exactly one property so the AI RCA
-   panel has a single crisp root cause to report.
+   Every declaration here is intentionally also present in the
+   candidate stylesheet, so each build-to-build delta is exactly
+   one CSS property. That gives Percy's RCA a single, crisp
+   root cause to surface per snapshot.
    ============================================================ */
 
-/* unchanged from 4.18.0 */
+/* Home — hero call to action */
 .hero__cta { background: #2456f5; }
 
-/* unchanged from 4.18.0 */
+/* Product grid — price sits below the title and meta line */
 .product-card__price { top: 62px; }
 
-/* REGRESSION — the button was given a fixed narrow width, clipping
-   "Place order · $214.00" mid-label at both ends. */
+/* Checkout — constrain the primary action to the compact button width */
 .btn--place-order { width: 96px; }
 
-/* REGRESSION — a fixed height was added to the sign-in card, cutting
-   off the submit button and the "Forgot password" link entirely. */
+/* Sign in — pin the card to a fixed height for a steadier layout */
 .login-card { height: 268px; overflow: hidden; }
 
-/* unchanged from 4.18.0 */
+/* Seller dashboard — chart legend uses the muted body colour */
 .chart-legend { color: #5b6178; }
 
-/* unchanged from 4.18.0 */
+/* Account settings — inputs are fluid inside the 360px card */
 .settings-card .form-input { width: 100%; }
 
-/* unchanged from 4.18.0 */
+/* Order history — the quantity column lines up under its header.
+   (The cells are right-aligned, so padding-RIGHT is what positions them.) */
 .orders-table td.qty { padding-right: 12px; }
 
-/* unchanged from 4.18.0 */
+/* Blog — body copy leading */
 .post-body { line-height: 1.65; }
