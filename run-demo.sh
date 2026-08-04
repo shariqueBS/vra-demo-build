@@ -3,12 +3,14 @@
 # Percy VRA demo build runner
 #
 #   ./run-demo.sh baseline    # release 4.18.0 — the clean build
-#   ./run-demo.sh candidate   # release 4.19.0 — 6 regressions, 2 intentional
-#                             #                  changes, 4 dynamic-content diffs
-#   ./run-demo.sh drift       # release 4.19.1 — nothing fixed, only the dynamic
-#                             #                  content churns (prompt payoff)
+#   ./run-demo.sh candidate   # release 4.19.0 on main — nav rebrand on all 16,
+#                             #   2 button regressions, 2 dynamic-content diffs.
+#                             #   No PR, so this build can NEVER show AI RCA.
+#   ./run-demo.sh drift       # release 4.19.1 on main — legacy, see the warning
 #   ./run-demo.sh pr <n>      # snapshot the checked-out branch as GitHub PR #n
 #                             #   — the ONLY mode that can produce AI RCA
+#   ./run-demo.sh bump-noise  # churn only the dynamic values on the PR branch,
+#                             #   for the Job 5 saved-prompt payoff
 #   ./run-demo.sh check       # render all variants locally, no upload
 #
 # Requires PERCY_TOKEN for the production Percy project you are demoing in.
@@ -145,6 +147,41 @@ upload_pr() {
 }
 
 # ---------------------------------------------------------------------------
+# Bump the dynamic content on the PR branch to release 4.19.1.
+#
+# For the Job 5 payoff. After saving an ignore prompt on a PR build, churn ONLY
+# the sync clock, session id, tracking id, last scan and relative feed times,
+# then re-run the PR build. The two sync-strip snapshots move again with values
+# the prompt has never seen, so suppressing them proves the prompt generalised
+# rather than matched one exact frame.
+#
+# Commits and pushes, because `pr` mode refuses a dirty tree and GitHub must
+# serve a PR diff that matches the snapshots.
+# ---------------------------------------------------------------------------
+bump_noise() {
+  local branch
+  branch="$(git -C "$HERE" rev-parse --abbrev-ref HEAD)"
+  [[ "$branch" != "main" ]] || die "you are on main — check out the PR branch first."
+
+  cp "$HERE/variants/v3/variant.js" "$APP/variant.js"
+
+  if git -C "$HERE" diff --quiet -- app/variant.js; then
+    say "dynamic content is already at 4.19.1 — nothing to bump"
+    return 0
+  fi
+
+  git -C "$HERE" add app/variant.js
+  git -C "$HERE" commit -q -m "chore: refresh sample sync clock, tracking id and feed times
+
+Release 4.19.1. Dynamic values only — no styling or copy changes."
+  git -C "$HERE" push -q origin "$branch"
+
+  say "dynamic content bumped to 4.19.1 and pushed to ${YLW}$branch${OFF}"
+  echo "  ${DIM}next: git checkout main && ./run-demo.sh baseline${OFF}"
+  echo "  ${DIM}then: git checkout $branch && ./run-demo.sh pr <n>${OFF}"
+}
+
+# ---------------------------------------------------------------------------
 # Local render check (no Percy account needed)
 # ---------------------------------------------------------------------------
 check() {
@@ -168,7 +205,22 @@ case "$MODE" in
     upload v2 main 7b2e9f04ac1d8365e0f47b91c2a6d5e83019fc4b "release 4.19.0 (candidate)"
     ;;
   drift)
+    echo "${YLW}drift uploads release 4.19.1 on branch 'main'.${OFF}"
+    echo "It only shows 'only the noise moved' if the LAST build on main already"
+    echo "carried the 4.19.0 content. In the PR-based flow used for AI RCA, main"
+    echo "holds the 4.18.0 baseline, so this would show every diff instead."
+    echo
+    echo "For the Job 5 payoff on a PR build, do this instead:"
+    echo "  ./run-demo.sh bump-noise          # on the PR branch"
+    echo "  git checkout main && ./run-demo.sh baseline"
+    echo "  git checkout - && ./run-demo.sh pr <n>"
+    echo
+    read -r -p "Upload on main anyway? [y/N] " reply
+    [[ "$reply" == "y" || "$reply" == "Y" ]] || die "aborted"
     upload v3 main 3e81c07d5b429af6182d0e73b45c9a2f60d18e97 "release 4.19.1 (drift)"
+    ;;
+  bump-noise)
+    bump_noise
     ;;
   pr)
     upload_pr "${2:-}" "${3:-main}"

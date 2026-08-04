@@ -1,18 +1,12 @@
-/* Aurelia storefront — content payload for release 4.19.1 (DRIFT BUILD).
- *
- * Compared with 4.19.0: ONLY the dynamic content moves.
- *   - Seller dashboard sync clock + session id
- *   - Order tracking id, last scan, updated time, five relative feed times
- *
- * The nav still says "Bag" (that change already shipped) and neither button
- * regression is fixed, so no intentional-change or bug diff reappears.
- * Reviewed against 4.19.0 this build should surface exactly two snapshots —
- * or zero, once the reviewer has saved an ignore prompt for them. */
+/* Aurelia storefront — content payload for release 4.19.1 (DRIFT).
+ * Everything that legitimately changes on every deploy — sync clocks,
+ * relative timestamps, rotating avatars, the promo creative — lives here.
+ * These are the diffs a reviewer should teach Percy to ignore. */
 
 window.DEMO = {
   release: '4.19.1',
 
-  // Unchanged from 4.19.0 — the rebrand already shipped.
+  // Global nav label — appears top-right on all 16 snapshots.
   nav: {
     cart: 'Bag',
   },
@@ -29,20 +23,17 @@ window.DEMO = {
     '/img/avatar-a4.svg', '/img/avatar-a5.svg', '/img/avatar-a6.svg',
   ],
 
-  // NOISE — churned again.
   sync: {
     clock: '08:19:35',
     session: 'sess_1c9e77af',
   },
 
-  // NOISE — churned again.
   tracking: {
     id: 'AUR-3382-6015',
     updated: '08:16:09',
     scan: 'Hub — Venlo · 07:52',
   },
 
-  // NOISE — churned again.
   feed: [
     '9 minutes ago',
     '52 minutes ago',

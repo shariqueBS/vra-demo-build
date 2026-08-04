@@ -36,7 +36,7 @@ build.
 | 1 | Group with BrowserStack AI enabled | ✅ |
 | 2 | Percy AI toggle on the project | ✅ |
 | 3 | GitHub integration, repo linked to the project | ✅ `shariqueBS/vra-demo-build` linked |
-| 4 | `bug-code-rca` for the org, backend flag **and** LaunchDarkly | ⚠️ **verify — required for Job 6** |
+| 4 | `bug-code-rca` for the org, backend flag **and** LaunchDarkly | ✅ confirmed working on build 52518587 |
 | 5 | Jira integration | ⚠️ not connected — button and panel view only, do not submit |
 
 ### Why Job 6 needs GitHub — corrected
@@ -187,8 +187,29 @@ settings is the gate for everything that follows.
 3. Read the generated prompt, **preview** the updated snapshot, then **Save prompt**.
 4. Point out that **Seller dashboard** has the same `sync-strip` pattern — one prompt is meant to
    cover both, not one prompt per snapshot.
-5. Re-baseline `main`, then run the PR build again (or `./run-demo.sh drift`) to show only those two
-   snapshots moving — the clean test of whether the prompt held.
+5. Now show the payoff. Two options:
+
+   **Simple** — re-run the same PR build with no code change:
+   ```bash
+   git checkout main && ./run-demo.sh baseline
+   git checkout fix/checkout-cta-width && ./run-demo.sh pr 1
+   ```
+   The two sync-strip snapshots were flagged on 52518587; on the new build they should not be. Same
+   content, so it is a clean A/B.
+
+   **Stronger** — churn the dynamic values first, so the prompt meets values it has never seen:
+   ```bash
+   git checkout fix/checkout-cta-width && ./run-demo.sh bump-noise
+   git checkout main && ./run-demo.sh baseline
+   git checkout fix/checkout-cta-width && ./run-demo.sh pr 1
+   ```
+   `bump-noise` commits and pushes release 4.19.1, which changes only the clock, session id,
+   tracking id, last scan and five relative times. Suppressing *those* proves the prompt
+   generalised rather than matching one exact frame.
+
+> Do **not** use `./run-demo.sh drift` in the PR flow. It uploads on `main`, and `main` now holds the
+> 4.18.0 baseline, so it would surface every diff rather than only the noise. The mode now warns and
+> asks for confirmation before running.
 
 Worth the most rehearsal: 0.5% saved-prompt adoption is the number in the deck, and step 5 is the
 argument for why anyone should bother.
