@@ -7,6 +7,8 @@
 #                             #                  changes, 4 dynamic-content diffs
 #   ./run-demo.sh drift       # release 4.19.1 — nothing fixed, only the dynamic
 #                             #                  content churns (prompt payoff)
+#   ./run-demo.sh pr <n>      # snapshot the checked-out branch as GitHub PR #n
+#                             #   — the ONLY mode that can produce AI RCA
 #   ./run-demo.sh check       # render all variants locally, no upload
 #
 # Requires PERCY_TOKEN for the production Percy project you are demoing in.
@@ -88,6 +90,61 @@ upload() {
 }
 
 # ---------------------------------------------------------------------------
+# Pull-request upload — the only mode that can produce AI RCA.
+#
+# AI RCA (the `bug-code-rca` feature) refuses to run unless the build is a
+# GitHub pull-request build. From
+# percy-api/app/services/percy/bug_remediation_service/service.rb:
+#
+#   unless build.pull_request_number.present? &&
+#          build.version_control_integration&.github?
+#     skip_remediation(reason: 'not_github_pr')
+#
+# Percy then fetches the PR's file patches from GitHub and asks the AI to map
+# the visual bugs onto them, returning `contributing_files`. So this mode does
+# NOT stage a variant — it snapshots the working tree exactly as checked out,
+# and reports the real branch, commit and PR number, so the diff Percy reads
+# from GitHub is genuinely the cause of the bugs on screen.
+# ---------------------------------------------------------------------------
+upload_pr() {
+  local pr="$1" target="${2:-main}"
+
+  [[ -n "${PERCY_TOKEN:-}" ]] || die "PERCY_TOKEN is not set. export PERCY_TOKEN=<project token>"
+  [[ -n "$pr" ]] || die "usage: ./run-demo.sh pr <pull-request-number> [target-branch]"
+
+  local branch commit
+  branch="$(git -C "$HERE" rev-parse --abbrev-ref HEAD)"
+  commit="$(git -C "$HERE" rev-parse HEAD)"
+
+  [[ "$branch" != "$target" ]] || die "you are on '$target' — check out the PR branch first."
+
+  if [[ -n "$(git -C "$HERE" status --porcelain -- app variants)" ]]; then
+    die "working tree is dirty under app/ or variants/.
+     Commit or discard those changes, otherwise the snapshots will not match
+     the PR diff that Percy fetches from GitHub and the RCA will be wrong."
+  fi
+
+  start_server
+
+  say "uploading PR #$pr — branch ${YLW}$branch${OFF} → $target, commit ${DIM}${commit:0:9}${OFF}"
+  PERCY_BRANCH="$branch" \
+  PERCY_COMMIT="$commit" \
+  PERCY_TARGET_BRANCH="$target" \
+  PERCY_PULL_REQUEST="$pr" \
+    npx percy snapshot "$HERE/snapshots.yml" \
+      --base-url "http://localhost:$PORT" \
+      --config "$HERE/.percy.yml"
+
+  stop_server
+  echo
+  say "done — the build should show a PR link."
+  echo "  ${DIM}If the RCA button is missing, check in order:${OFF}"
+  echo "  ${DIM}1. the repo is linked to this Percy project via the GitHub integration${OFF}"
+  echo "  ${DIM}2. 'bug-code-rca' is on for the org (backend flag AND LaunchDarkly)${OFF}"
+  echo "  ${DIM}3. the build actually has AI bug regions — no bugs means no RCA${OFF}"
+}
+
+# ---------------------------------------------------------------------------
 # Local render check (no Percy account needed)
 # ---------------------------------------------------------------------------
 check() {
@@ -112,6 +169,9 @@ case "$MODE" in
     ;;
   drift)
     upload v3 main 3e81c07d5b429af6182d0e73b45c9a2f60d18e97 "release 4.19.1 (drift)"
+    ;;
+  pr)
+    upload_pr "${2:-}" "${3:-main}"
     ;;
   check)
     check
