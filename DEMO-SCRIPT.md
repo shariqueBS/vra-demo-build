@@ -13,12 +13,19 @@ Re-running a variant produces byte-identical renders, so a retake never changes 
 | Build | Release | Branch | What it is |
 |---|---|---|---|
 | [52516489](https://percy.io/test/web/Demo-project-4-August-2026-bb35d626/builds/52516489) | 4.18.0 | main | first baseline, 16 new snapshots |
-| [52516878](https://percy.io/test/web/Demo-project-4-August-2026-bb35d626/builds/52516878) | 4.19.0 | main | spare — has the diffs but **cannot** show RCA |
-| [52518084](https://percy.io/test/web/Demo-project-4-August-2026-bb35d626/builds/52518084) | 4.18.0 | main | re-baseline, so the PR has something to diff against |
-| **[52518103](https://percy.io/test/web/Demo-project-4-August-2026-bb35d626/builds/52518103)** | **4.19.0** | **PR #1** | **film everything here — jobs 2–6** |
+| [52516878](https://percy.io/test/web/Demo-project-4-August-2026-bb35d626/builds/52516878) | 4.19.0 | main | spare — has the diffs, cannot show RCA (no PR) |
+| [52518084](https://percy.io/test/web/Demo-project-4-August-2026-bb35d626/builds/52518084) | 4.18.0 | main | re-baseline |
+| [52518103](https://percy.io/test/web/Demo-project-4-August-2026-bb35d626/builds/52518103) | 4.19.0 | PR #1 | dead — created **before** the repo was linked, so `repo_id` is nil |
+| [52518575](https://percy.io/test/web/Demo-project-4-August-2026-bb35d626/builds/52518575) | 4.18.0 | main | re-baseline, repo now linked |
+| **[52518587](https://percy.io/test/web/Demo-project-4-August-2026-bb35d626/builds/52518587)** | **4.19.0** | **PR #1** | **film everything here — jobs 2–6** |
 
-Build 52518103 is the one to use. It carries the same diffs as 52516878 *plus* the GitHub PR
-metadata that AI RCA requires.
+Build 52518587 is the one to use: same diffs as 52516878, plus the GitHub PR metadata AI RCA
+requires, and created after the repo was linked to the project.
+
+Build 52518103 cannot be rescued. `percy-api/app/models/percy/build.rb:66` is `belongs_to :repo`,
+so the repo is stamped onto the build at creation time rather than looked up later — a build created
+before the repo was linked has `repo_id` nil forever. Any change to the integration needs a fresh
+build.
 
 ---
 
@@ -28,8 +35,8 @@ metadata that AI RCA requires.
 |---|---|---|
 | 1 | Group with BrowserStack AI enabled | ✅ |
 | 2 | Percy AI toggle on the project | ✅ |
-| 3 | GitHub integration, repo linked to the project | ⚠️ **required for Job 6 — see below** |
-| 4 | `bug-code-rca` for the org, backend flag **and** LaunchDarkly | ⚠️ **required for Job 6** |
+| 3 | GitHub integration, repo linked to the project | ✅ `shariqueBS/vra-demo-build` linked |
+| 4 | `bug-code-rca` for the org, backend flag **and** LaunchDarkly | ⚠️ **verify — required for Job 6** |
 | 5 | Jira integration | ⚠️ not connected — button and panel view only, do not submit |
 
 ### Why Job 6 needs GitHub — corrected
