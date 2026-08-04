@@ -1,14 +1,14 @@
-/* Aurelia storefront — content payload for release 4.18.0 (BASELINE).
+/* Aurelia storefront — content payload for release 4.19.0 (CANDIDATE).
  * Everything that legitimately changes on every deploy — sync clocks,
  * relative timestamps, rotating avatars, the promo creative — lives here.
  * These are the diffs a reviewer should teach Percy to ignore. */
 
 window.DEMO = {
-  release: '4.18.0',
+  release: '4.19.0',
 
   // Global nav label — appears top-right on all 16 snapshots.
   nav: {
-    cart: 'Cart',
+    cart: 'Bag',
   },
 
   images: {
@@ -24,22 +24,22 @@ window.DEMO = {
   ],
 
   sync: {
-    clock: '09:41:12',
-    session: 'sess_7f3a91c2',
+    clock: '16:07:48',
+    session: 'sess_b2d40e19',
   },
 
   tracking: {
-    id: 'AUR-4471-8823',
-    updated: '09:38:04',
-    scan: 'Hub — Rotterdam · 09:12',
+    id: 'AUR-9126-3307',
+    updated: '16:04:22',
+    scan: 'Hub — Antwerp · 15:47',
   },
 
   feed: [
-    '2 minutes ago',
-    '17 minutes ago',
-    '1 hour ago',
-    '4 hours ago',
-    'Yesterday, 18:20',
+    '5 minutes ago',
+    '38 minutes ago',
+    '2 hours ago',
+    '7 hours ago',
+    'Yesterday, 21:05',
   ],
 
   reviews: [

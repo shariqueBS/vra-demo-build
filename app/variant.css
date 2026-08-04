@@ -1,5 +1,5 @@
 /* ============================================================
-   Aurelia storefront — release 4.18.0  (BASELINE)
+   Aurelia storefront — release 4.19.0  (CANDIDATE)
    Every declaration here is intentionally also present in the
    candidate stylesheet, so each build-to-build delta is exactly
    one CSS property. That gives Percy's RCA a single, crisp
@@ -12,11 +12,11 @@
 /* Product grid — price sits below the title and meta line */
 .product-card__price { top: 62px; }
 
-/* Checkout — the primary action is wide enough for its longest label */
-.btn--place-order { width: 168px; }
+/* Checkout — constrain the primary action to the compact button width */
+.btn--place-order { width: 96px; }
 
-/* Sign in — the card grows to fit its contents */
-.login-card { height: auto; overflow: visible; }
+/* Sign in — pin the card to a fixed height for a steadier layout */
+.login-card { height: 268px; overflow: hidden; }
 
 /* Seller dashboard — chart legend uses the muted body colour */
 .chart-legend { color: #5b6178; }
