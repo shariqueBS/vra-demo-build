@@ -1,0 +1,17 @@
+/* ============================================================
+   Aurelia storefront — release 4.19.1  (DRIFT BUILD)
+   Byte-identical to 4.19.0. Neither button regression is fixed,
+   so both disappear from the comparison when this build is
+   reviewed against 4.19.0.
+   The ONLY thing that moves is the dynamic content in variant.js
+   — which is exactly what a saved ignore prompt should absorb.
+   ============================================================ */
+
+.hero__cta { background: #2456f5; }
+.product-card__price { top: 62px; }
+.btn--place-order { width: 96px; }
+.login-card { height: 268px; overflow: hidden; }
+.chart-legend { color: #5b6178; }
+.settings-card .form-input { width: 100%; }
+.orders-table td.qty { padding-right: 12px; }
+.post-body { line-height: 1.65; }

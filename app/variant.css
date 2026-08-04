@@ -1,0 +1,32 @@
+/* ============================================================
+   Aurelia storefront — release 4.18.0  (BASELINE)
+   Every declaration here is intentionally also present in the
+   candidate stylesheet, so each build-to-build delta is exactly
+   one CSS property. That gives Percy's RCA a single, crisp
+   root cause to surface per snapshot.
+   ============================================================ */
+
+/* Home — hero call to action */
+.hero__cta { background: #2456f5; }
+
+/* Product grid — price sits below the title and meta line */
+.product-card__price { top: 62px; }
+
+/* Checkout — the primary action is wide enough for its longest label */
+.btn--place-order { width: 168px; }
+
+/* Sign in — the card grows to fit its contents */
+.login-card { height: auto; overflow: visible; }
+
+/* Seller dashboard — chart legend uses the muted body colour */
+.chart-legend { color: #5b6178; }
+
+/* Account settings — inputs are fluid inside the 360px card */
+.settings-card .form-input { width: 100%; }
+
+/* Order history — the quantity column lines up under its header.
+   (The cells are right-aligned, so padding-RIGHT is what positions them.) */
+.orders-table td.qty { padding-right: 12px; }
+
+/* Blog — body copy leading */
+.post-body { line-height: 1.65; }

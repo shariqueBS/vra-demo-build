@@ -1,0 +1,8 @@
+# Local render output from tools/render-check.sh
+tools/render/
+
+# Percy CLI noise
+.percy/
+npm-debug.log*
+node_modules/
+.DS_Store

@@ -1,0 +1,18 @@
+version: 2
+
+snapshot:
+  # One width keeps the demo build tight and readable on camera. The app has no
+  # responsive breakpoints, so adding 375 would create layout "bugs" everywhere
+  # and drown out the ones we engineered on purpose.
+  widths:
+    - 1280
+  min-height: 900
+  # The app is deliberately free of animation, web fonts and randomness, so no
+  # stabilising percy-css is needed. Anything unstable here would compete with
+  # the four dynamic-content diffs we *want* the reviewer to see.
+  percy-css: ""
+
+discovery:
+  allowed-hostnames:
+    - localhost
+  network-idle-timeout: 250

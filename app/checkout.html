@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aurelia — Checkout</title>
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/variant.css">
+<script src="/variant.js"></script>
+</head>
+<body data-page="cart">
+<main class="shell page">
+
+  <h1 style="font-size:26px">Checkout</h1>
+  <div class="steps"><b>1. Delivery</b> → <span>2. Payment</span> → <span>3. Confirm</span></div>
+
+  <div class="grid grid--split">
+    <div class="card card--pad-lg">
+      <h2 style="font-size:16px">Delivery address</h2>
+      <div class="form-row">
+        <div class="field"><label for="fn">First name</label><input class="form-input" id="fn" value="Marta"></div>
+        <div class="field"><label for="ln">Last name</label><input class="form-input" id="ln" value="Lindqvist"></div>
+      </div>
+      <div class="field"><label for="a1">Address</label><input class="form-input" id="a1" value="Oudegracht 214"></div>
+      <div class="form-row">
+        <div class="field"><label for="pc">Postcode</label><input class="form-input" id="pc" value="3511 NL"></div>
+        <div class="field"><label for="ci">City</label><input class="form-input" id="ci" value="Utrecht"></div>
+      </div>
+      <div class="field">
+        <label for="co">Country</label>
+        <select class="form-input form-input--select" id="co"><option>Netherlands</option></select>
+      </div>
+
+      <h2 style="font-size:16px;margin-top:24px">Payment</h2>
+      <div class="field"><label for="cd">Card number</label><input class="form-input" id="cd" value="4242 4242 4242 4242"></div>
+      <div class="form-row">
+        <div class="field"><label for="ex">Expiry</label><input class="form-input" id="ex" value="09 / 29"></div>
+        <div class="field"><label for="cv">CVC</label><input class="form-input" id="cv" value="•••"></div>
+      </div>
+
+      <button class="btn btn--primary btn--lg btn--place-order" style="margin-top:14px">Place order · $214.00</button>
+      <p class="field__hint">By placing this order you accept our terms of sale.</p>
+    </div>
+
+    <aside class="panel">
+      <h2 style="font-size:16px">Order summary</h2>
+      <div class="summary-row"><span>Aurelia Trail 3 — Cobalt</span><span>$164.00</span></div>
+      <div class="summary-row"><span>Merino Crew Socks</span><span>$18.00</span></div>
+      <div class="summary-row"><span>Recovery Slide — Mint</span><span>$64.00</span></div>
+      <div class="summary-row"><span>Member discount</span><span>−$32.00</span></div>
+      <div class="summary-row summary-row--total"><span>Total</span><span>$214.00</span></div>
+      <p class="muted" style="font-size:13px;margin:14px 0 0">Delivery Wed 6 Aug, before 18:00.</p>
+    </aside>
+  </div>
+
+</main>
+<script src="/js/layout.js"></script>
+</body>
+</html>

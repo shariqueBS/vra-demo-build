@@ -1,0 +1,32 @@
+/* ============================================================
+   Aurelia storefront — release 4.19.0  (CANDIDATE)
+   Same declarations as 4.18.0, TWO values changed — both button
+   regressions, each caused by exactly one property so the AI RCA
+   panel has a single crisp root cause to report.
+   ============================================================ */
+
+/* unchanged from 4.18.0 */
+.hero__cta { background: #2456f5; }
+
+/* unchanged from 4.18.0 */
+.product-card__price { top: 62px; }
+
+/* REGRESSION — the button was given a fixed narrow width, clipping
+   "Place order · $214.00" mid-label at both ends. */
+.btn--place-order { width: 96px; }
+
+/* REGRESSION — a fixed height was added to the sign-in card, cutting
+   off the submit button and the "Forgot password" link entirely. */
+.login-card { height: 268px; overflow: hidden; }
+
+/* unchanged from 4.18.0 */
+.chart-legend { color: #5b6178; }
+
+/* unchanged from 4.18.0 */
+.settings-card .form-input { width: 100%; }
+
+/* unchanged from 4.18.0 */
+.orders-table td.qty { padding-right: 12px; }
+
+/* unchanged from 4.18.0 */
+.post-body { line-height: 1.65; }

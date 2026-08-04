@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aurelia — Track your order</title>
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/variant.css">
+<script src="/variant.js"></script>
+</head>
+<body data-page="account">
+<main class="shell page">
+
+  <h1 style="font-size:26px">Track your order</h1>
+
+  <div class="sync-strip" style="margin-top:16px">
+    <span class="sync-strip__dot"></span>
+    <span>Carrier feed · last updated</span>
+    <span class="sync-strip__clock" data-demo="tracking.updated">--:--:--</span>
+    <span>·</span>
+    <span>Latest scan: <span data-demo="tracking.scan">—</span></span>
+  </div>
+
+  <div class="grid grid--split">
+    <div class="card card--pad-lg">
+      <h2 style="font-size:16px">Order <span data-demo="tracking.id">—</span></h2>
+      <p class="muted" style="font-size:13.5px">3 items · placed 28 July 2026</p>
+
+      <ul class="feed" style="margin-top:14px">
+        <li><span><b>Out for delivery</b> — Utrecht, NL</span><span class="feed__when" data-demo="feed.0">—</span></li>
+        <li><span>Arrived at local depot — Utrecht, NL</span><span class="feed__when" data-demo="feed.1">—</span></li>
+        <li><span>In transit — Antwerp hub, BE</span><span class="feed__when" data-demo="feed.2">—</span></li>
+        <li><span>Left the warehouse — Venlo, NL</span><span class="feed__when" data-demo="feed.3">—</span></li>
+        <li><span>Label created</span><span class="feed__when" data-demo="feed.4">—</span></li>
+      </ul>
+    </div>
+
+    <aside class="panel">
+      <h2 style="font-size:16px">Delivery</h2>
+      <div class="summary-row"><span>Expected</span><span>Wed 6 Aug</span></div>
+      <div class="summary-row"><span>Window</span><span>13:00 – 18:00</span></div>
+      <div class="summary-row"><span>Carrier</span><span>DHL Parcel</span></div>
+      <div class="summary-row"><span>Signature</span><span>Not required</span></div>
+      <a class="btn btn--ghost btn--block" style="margin-top:14px" href="/help.html">Change delivery</a>
+    </aside>
+  </div>
+
+</main>
+<script src="/js/layout.js"></script>
+</body>
+</html>

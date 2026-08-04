@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aurelia — Your cart</title>
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/variant.css">
+<script src="/variant.js"></script>
+</head>
+<body data-page="cart">
+<main class="shell page">
+
+  <h1 style="font-size:26px">Your cart</h1>
+  <p class="muted">3 items · reserved for 30 minutes</p>
+
+  <div class="grid grid--split" style="margin-top:22px">
+    <div class="card">
+      <table class="table">
+        <thead>
+          <tr><th>Item</th><th class="num">Qty</th><th class="num">Price</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Aurelia Trail 3 — Cobalt <span class="muted">· EU 43</span></td>
+            <td class="num">1</td><td class="num">$164.00</td>
+          </tr>
+          <tr>
+            <td>Recovery Slide — Mint <span class="muted">· EU 43</span></td>
+            <td class="num">1</td><td class="num">$64.00</td>
+          </tr>
+          <tr>
+            <td>Merino Crew Socks <span class="muted">· M</span></td>
+            <td class="num">1</td><td class="num">$18.00</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="muted" style="font-size:13px;margin:16px 0 0">Prices include VAT. Duties calculated at checkout.</p>
+    </div>
+
+    <aside class="panel">
+      <h2 style="font-size:16px">Summary</h2>
+      <div class="summary-row"><span>Subtotal</span><span>$246.00</span></div>
+      <div class="summary-row"><span>Delivery</span><span>Free</span></div>
+      <div class="summary-row"><span>Duties</span><span>$0.00</span></div>
+      <div class="summary-row summary-row--total"><span>Total</span><span>$246.00</span></div>
+      <a class="btn btn--primary btn--block" style="margin-top:16px" href="/checkout.html">Checkout</a>
+      <a class="btn btn--ghost btn--block" style="margin-top:10px" href="/products.html">Keep shopping</a>
+    </aside>
+  </div>
+
+</main>
+<script src="/js/layout.js"></script>
+</body>
+</html>

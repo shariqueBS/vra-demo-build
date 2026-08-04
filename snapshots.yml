@@ -1,0 +1,40 @@
+# Explicit snapshot list so the build shows readable names ("Checkout") rather
+# than file paths ("/checkout.html"). Names must be identical across both builds
+# for Percy to pair them into comparisons — never edit these between runs.
+#
+# Ordering here has no effect on the dashboard; Percy groups and sorts snapshots
+# itself (which is what "Sort by Bugs" re-orders).
+
+snapshots:
+  - name: Home
+    url: /index.html
+  - name: Product listing
+    url: /products.html
+  - name: Product detail
+    url: /product.html
+  - name: Cart
+    url: /cart.html
+  - name: Checkout
+    url: /checkout.html
+  - name: Sign in
+    url: /login.html
+  - name: Account settings
+    url: /account.html
+  - name: Order history
+    url: /orders.html
+  - name: Seller dashboard
+    url: /dashboard.html
+  - name: Membership pricing
+    url: /pricing.html
+  - name: Blog post
+    url: /blog.html
+  - name: Deals
+    url: /deals.html
+  - name: Customer reviews
+    url: /reviews.html
+  - name: Order tracking
+    url: /order-status.html
+  - name: About us
+    url: /about.html
+  - name: Help centre
+    url: /help.html

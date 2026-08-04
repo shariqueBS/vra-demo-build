@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aurelia — Seller dashboard</title>
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/variant.css">
+<script src="/variant.js"></script>
+</head>
+<body data-page="dashboard">
+<main class="shell page">
+
+  <h1 style="font-size:26px">Seller dashboard</h1>
+  <p class="muted">Aurelia Footwear Ltd · EU storefront</p>
+
+  <div class="sync-strip" style="margin-top:18px">
+    <span class="sync-strip__dot"></span>
+    <span>Live data · last synced</span>
+    <span class="sync-strip__clock" data-demo="sync.clock">--:--:--</span>
+    <span>·</span>
+    <span data-demo="sync.session">sess_—</span>
+  </div>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <p class="kpi__label">Revenue (30d)</p>
+      <div class="kpi__value">$482,910</div>
+      <div class="kpi__delta kpi__delta--up">▲ 12.4% vs prior</div>
+    </div>
+    <div class="kpi">
+      <p class="kpi__label">Orders</p>
+      <div class="kpi__value">3,148</div>
+      <div class="kpi__delta kpi__delta--up">▲ 6.1% vs prior</div>
+    </div>
+    <div class="kpi">
+      <p class="kpi__label">Return rate</p>
+      <div class="kpi__value">7.8%</div>
+      <div class="kpi__delta kpi__delta--down">▼ 1.2pp vs prior</div>
+    </div>
+    <div class="kpi">
+      <p class="kpi__label">Avg. order value</p>
+      <div class="kpi__value">$153.40</div>
+      <div class="kpi__delta kpi__delta--up">▲ 3.9% vs prior</div>
+    </div>
+  </div>
+
+  <div class="chart">
+    <div class="section-head" style="margin-bottom:6px">
+      <h2 style="font-size:16px">Units sold by week</h2>
+      <span class="muted" style="font-size:13px">Last 8 weeks</span>
+    </div>
+    <div class="chart__bars">
+      <div class="chart__bar" style="height:52%"></div>
+      <div class="chart__bar" style="height:61%"></div>
+      <div class="chart__bar" style="height:48%"></div>
+      <div class="chart__bar" style="height:73%"></div>
+      <div class="chart__bar" style="height:80%"></div>
+      <div class="chart__bar" style="height:66%"></div>
+      <div class="chart__bar" style="height:91%"></div>
+      <div class="chart__bar chart__bar--alt" style="height:44%"></div>
+    </div>
+    <div class="chart__axis">
+      <span>W23</span><span>W24</span><span>W25</span><span>W26</span>
+      <span>W27</span><span>W28</span><span>W29</span><span>W30</span>
+    </div>
+    <div class="chart-legend">
+      <span><i style="background:#2456f5"></i> Completed weeks</span>
+      <span><i style="background:#9db4fb"></i> Week in progress</span>
+      <span><i style="background:#e4e7ef"></i> No data</span>
+    </div>
+  </div>
+
+</main>
+<script src="/js/layout.js"></script>
+</body>
+</html>
