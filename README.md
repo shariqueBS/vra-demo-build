@@ -6,10 +6,21 @@ A deterministic Percy demo build for filming the six Visual Review Agent jobs-to
 
 ```bash
 export PERCY_TOKEN=<project token>
-./run-demo.sh baseline     # build 1 — clean
-./run-demo.sh candidate    # build 2 — nav rebrand on all 16, 2 button bugs, 2 noise snapshots
-./run-demo.sh drift        # build 3 — only the 2 noise snapshots move
+
+git checkout main
+./run-demo.sh baseline              # baseline — release 4.18.0
+
+git checkout fix/checkout-cta-width
+./run-demo.sh pr 1                  # PR build — nav rebrand ×16, 2 button bugs, 2 noise snapshots
+                                    # the only mode that can produce AI RCA
+./run-demo.sh drift                 # optional — only the 2 noise snapshots move
 ```
+
+**AI RCA requires a GitHub pull-request build.** `percy-api`'s bug-remediation service refuses to
+run unless `build.pull_request_number` is present and the project has a GitHub integration; it then
+maps the visual bugs onto the PR's file patches. Re-baseline `main` before each PR build, or the PR
+diffs against 4.19.0 content and shows nothing. Details in
+[DEMO-SCRIPT.md](DEMO-SCRIPT.md#why-job-6-needs-github--corrected).
 
 ## Layout
 
